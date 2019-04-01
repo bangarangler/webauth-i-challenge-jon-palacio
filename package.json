@@ -1,0 +1,35 @@
+{
+  "name": "webauth-i-challenge-jon-palacio",
+  "version": "1.0.0",
+  "description": "<!--jp--> # Authentication Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bangarangler/webauth-i-challenge-jon-palacio.git"
+  },
+  "author": "JP",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bangarangler/webauth-i-challenge-jon-palacio/issues"
+  },
+  "homepage": "https://github.com/bangarangler/webauth-i-challenge-jon-palacio#readme",
+  "devDependencies": {
+    "knex-cleaner": "^1.1.4",
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "helmet": "^3.16.0",
+    "knex": "^0.16.3",
+    "morgan": "^1.9.1",
+    "sqlite3": "^4.0.6"
+  }
+}
