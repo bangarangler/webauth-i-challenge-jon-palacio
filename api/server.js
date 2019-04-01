@@ -5,7 +5,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 const registerRouter = require("../register/registerRouter.js");
-//const loginRouter = require('')
+const loginRouter = require("../login/loginRouter.js");
 const userRouter = require("../user/userRouter.js");
 
 const db = require("../data/dbConfig.js");
@@ -16,7 +16,7 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 server.use("/api/register", registerRouter);
-//server.use("/api/login", loginRouter);
+server.use("/api/login", loginRouter);
 server.use("/api/users", userRouter);
 
 server.get("/", async (req, res) => {
