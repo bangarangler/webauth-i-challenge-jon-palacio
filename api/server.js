@@ -3,10 +3,12 @@ const express = require("express");
 const knex = require("knex");
 const helmet = require("helmet");
 const cors = require("cors");
+const session = require("express-session");
 
 const registerRouter = require("../register/registerRouter.js");
 const loginRouter = require("../login/loginRouter.js");
 const userRouter = require("../user/userRouter.js");
+const sessionConfig = require("../auth/session-config.js");
 
 const db = require("../data/dbConfig.js");
 
@@ -18,6 +20,7 @@ server.use(cors());
 server.use("/api/register", registerRouter);
 server.use("/api/login", loginRouter);
 server.use("/api/users", userRouter);
+server.use(session(sessionConfig));
 
 server.get("/", async (req, res) => {
   try {
