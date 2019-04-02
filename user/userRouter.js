@@ -18,23 +18,33 @@ router.get("/", restricted, async (req, res) => {
 });
 
 async function restricted(req, res, next) {
-  const { username, password } = req.headers;
-  if (username && password) {
-    const foundUser = await Users.findBy({ username }).first();
-    //console.log(foundUser);
-    try {
-      if (foundUser && bcrypt.compareSync(password, foundUser.password)) {
-        next();
-      } else {
-        console.log("err here!!!");
-        res.status(401).json({ message: `You shall not pass!` });
-      }
-    } catch (err) {
-      res.status(500).json({ message: `Internal Error, ${err}` });
+  try {
+    if (req.session && req.session.user) {
+      next();
+    } else {
+      res.status(401).json({ message: "Unathorized to See this... step off" });
     }
-  } else {
-    res.status(400).json({ message: `Bad request, missing info` });
+  } catch (err) {
+    res.status(500).json({ message: `Internal Error, ${err} ` });
   }
 }
+//const { username, password } = req.headers;
+//if (username && password) {
+//const foundUser = await Users.findBy({ username }).first();
+////console.log(foundUser);
+//try {
+//if (foundUser && bcrypt.compareSync(password, foundUser.password)) {
+//next();
+//} else {
+//console.log("err here!!!");
+//res.status(401).json({ message: `You shall not pass!` });
+//}
+//} catch (err) {
+//res.status(500).json({ message: `Internal Error, ${err}` });
+//}
+//} else {
+//res.status(400).json({ message: `Bad request, missing info` });
+//}
+//}
 
 module.exports = router;
