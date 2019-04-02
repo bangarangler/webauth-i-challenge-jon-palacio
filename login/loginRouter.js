@@ -9,16 +9,21 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   let { username, password } = req.body;
-  let selected = await Users.findBy({ username }).first();
-  try {
-    if (selected && bcrypt.compareSync(password, selected.password)) {
-      req.session.selected = selected;
-      res.status(200).json({ message: `Welcome ${selected.username}` });
-    } else {
-      res.status(401).json({ message: "Invalid Credentials" });
+  if (!username || !password) {
+    res.status(400).json(`Bad request, must have username and password`);
+  } else {
+    try {
+      let selected = await Users.findBy({ username }).first();
+      if (selected && bcrypt.compareSync(password, selected.password)) {
+        req.session.selected = selected;
+        console.log(req.session);
+        res.status(200).json({ message: `Welcome ${selected.username}` });
+      } else {
+        res.status(401).json({ message: "Invalid Credentials" });
+      }
+    } catch (err) {
+      res.status(500).json({ message: `Internal Error, ${err}` });
     }
-  } catch (err) {
-    res.status(500).json({ message: `Internal Error, ${err}` });
   }
 });
 

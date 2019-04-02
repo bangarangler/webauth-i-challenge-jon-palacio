@@ -14,13 +14,13 @@ const db = require("../data/dbConfig.js");
 
 const server = express();
 
+server.use(session(sessionConfig));
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
 server.use("/api/register", registerRouter);
 server.use("/api/login", loginRouter);
 server.use("/api/users", userRouter);
-server.use(session(sessionConfig));
 
 server.get("/", async (req, res) => {
   try {
